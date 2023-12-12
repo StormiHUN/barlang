@@ -28,6 +28,7 @@
         padding: 10px;
         margin-bottom: 10px;
         justify-content: center;
+        text-align: center;
         height: 96px;
     }
     .kiskep{
@@ -40,15 +41,78 @@
         background-color: greenyellow;
         border: 1px solid black;
     }
+    #rossz{
+        background-color: red;
+    }
 </style>
 <script>
+
+    const szamok = [0,0,0,0,0,0]
+    let szamok_given = [0,0,0,0,0,0]
+    let count = 0
+    let flag = false
 
     function start(){
         let html = ""
         for(i = 0; i < 6; i++){
-            html += '<img src="icon' + Math.floor(Math.random()*8+1) + 'n.png">'
+            szam = Math.floor(Math.random()*8+1)
+            szamok[i] = szam
+            html += '<img src="icon' + szam + 'n.png">'
         }           
         document.getElementById("f1").innerHTML = html
+        html = ""
+        for(i = 1; i < 9; i++){
+            html += '<img class="kiskep" onclick="katt('+i+')" src="icon' + i + 'k.png">'
+        }
+        document.getElementById("f3").innerHTML = html
+    }
+
+    function setNew() {
+        let html = ""
+        for(i = 0; i < 6; i++){
+            szam = Math.floor(Math.random()*8+1)
+            szamok[i] = szam
+            html += '<img src="icon' + szam + 'n.png">'
+        }           
+        document.getElementById("f1").innerHTML = html
+    }
+
+    function katt(id) {
+        if(flag){
+            flag = false
+            setNew()
+            document.getElementById("f2").innerHTML = ""
+            document.getElementById("f2").style = "background-color: white"
+            count = 0
+            szamok_given = [0,0,0,0,0,0]
+        }else{
+            szamok_given[count] = id
+            count++
+            draw()
+        }
+    }
+
+    function draw() {
+        let html = ""
+        let range = 0
+        for(i of szamok_given){
+            if(i != 0){
+                if(i == szamok[range]){
+                    range++
+                    html += '<img src="icon' + i + 'n.png">'
+                }
+                else if(i != szamok[range]){
+                    html += '<img id="rossz" src="icon' + i + 'n.png">'
+                    flag = true
+                    break
+                }
+                if(szamok[szamok.length-1] == szamok_given[szamok_given.length-1] && szamok_given[szamok_given.length-1] != 0){
+                    document.getElementById("f2").style = "background-color: lightgreen"
+                    flag = true
+                }
+            }
+        }
+        document.getElementById("f2").innerHTML = html
     }
 
 </script>
@@ -56,13 +120,13 @@
     
     <div class="container">
         <div class="item" id="f1">
-            ?
+            
         </div>
         <div class="item_center" id="f2">
-            ?
+            
         </div>
         <div class="item" id="f3">
-            ?
+            
         </div>
     </div>
 </body>
