@@ -20,18 +20,48 @@
         padding: 10px;
         margin-bottom: 10px;
         justify-content: center;
+        text-align: center;
+    }
+    .item_center{
+        background-color: white;
+        border-radius: 20px;
+        padding: 10px;
+        margin-bottom: 10px;
+        justify-content: center;
         height: 96px;
     }
+    .kiskep{
+        margin: 1px;
+        padding: 2px;
+        border: 1px solid lightgrey;
+    }
+
+    .kiskep:hover{
+        background-color: greenyellow;
+        border: 1px solid black;
+    }
 </style>
-<body>
+<script>
+
+    function start(){
+        let html = ""
+        for(i = 0; i < 6; i++){
+            html += '<img src="icon' + Math.floor(Math.random()*8+1) + 'n.png">'
+        }           
+        document.getElementById("f1").innerHTML = html
+    }
+
+</script>
+<body onload="start()">
+    
     <div class="container">
-        <div class="item">
+        <div class="item" id="f1">
             ?
         </div>
-        <div class="item">
+        <div class="item_center" id="f2">
             ?
         </div>
-        <div class="item">
+        <div class="item" id="f3">
             ?
         </div>
     </div>
